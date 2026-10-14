@@ -18,7 +18,7 @@ let records=[], me={email:null,csrf:null}, filtered=[], markers=new Map(), map, 
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const locationOk=r=>Number.isFinite(r.latitude)&&Number.isFinite(r.longitude);
-const title=r=>`${r.firstName} ${r.lastName}`;
+const title=r=>{const name=`${r.firstName} ${r.lastName}`.trim();return norm(r.profession).trim()==='medecin'&&!/^(?:dr\.?|docteur)(?:\s|$)/i.test(name)?`Dr ${name}`:name;};
 const address=r=>`${r.street}, ${r.postalCode} ${r.city}, ${r.country}`;
 const mapsUrl=r=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(address(r));
 const equipments=r=>r.equipment.split(',').map(s=>s.trim()).filter(Boolean);
