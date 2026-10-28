@@ -1,0 +1,1 @@
+# Aucune dépendance externe : le serveur utilise uniquement Python.

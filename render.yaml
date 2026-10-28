@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: cartographie-pbm
+    runtime: python
+    plan: starter            # un disque permanent exige une offre payante
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    disk:
+      name: donnees
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATA_DIR
+        value: /var/data
+      - key: MASTER_EMAIL
+        sync: false          # à saisir dans Render : votre e-mail
+      - key: MASTER_PASSWORD
+        sync: false          # à saisir dans Render : votre mot de passe (12 caractères min.)
