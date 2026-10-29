@@ -127,8 +127,8 @@ def clean_address(a):
     out['longitude'] = coord(a.get('longitude'), -180, 180)
     if (out['latitude'] is None) != (out['longitude'] is None):
         raise Refused('Renseignez la latitude et la longitude ensemble.')
-    if not (out['street'] and out['city'] and out['country']):
-        raise Refused('Chaque lieu doit avoir une adresse, une ville et un pays.')
+    if not out['country']:
+        raise Refused('Chaque lieu doit au moins indiquer un pays (sans adresse précise, il apparaît au centre du pays).')
     return out
 
 def clean_record(data):
